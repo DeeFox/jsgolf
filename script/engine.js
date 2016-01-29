@@ -4,11 +4,14 @@ define([
   var world;
   var ball;
   var ballSleeping = false;
+  var engineConfig = {
+    timestep: 6
+  };
   return {
     initialize: function() {
       world = Physics({
         maxIPF: 5,
-        timestep: 6
+        timestep: engineConfig.timestep
       });
       var bounds = Physics.aabb(0, 0, 1200, 600);
       world.add( Physics.behavior('edge-collision-detection', {
@@ -71,11 +74,12 @@ define([
         ball.state.vel.y = 0;
         ballSleeping = true;
       }
-
-      console.log(ball.state.vel.x + " _ " + ball.state.vel.y);
     },
     kickRenderer: function() {
       world.render();
+    },
+    getBallPos: function() {
+      return [ball.state.pos.x, ball.state.pos.y];
     }
   }
 });

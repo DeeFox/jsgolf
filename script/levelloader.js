@@ -8,11 +8,10 @@ define([
   'physicsjs-full.min',
   'jquery'
 ], function( Physics, $ ){
-  
+
   var processLevel = function(data, engine) {
     for(var i = 0; i < data.length; i++) {
       var p = data[i];
-      console.log(p);
       if(p['shape'] == "rect") {
         var item = Physics.body('rectangle', {
           x: p['pos'][0],
@@ -31,10 +30,10 @@ define([
 
   return {
     processLevel: processLevel,
-    loadLevel: function(levelname, engine) {
-      console.log($);
+    loadLevel: function(levelname, engine, callback) {
       $.getJSON( "levels/" + levelname + ".json", function( data ) {
         processLevel(data, engine);
+        callback();
       });
     }
   }
