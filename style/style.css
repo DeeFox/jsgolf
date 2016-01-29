@@ -1,11 +1,11 @@
 html, body { width:100%; height:100%; }
 
 body {
-  background-color: #333333;
+  background-color: #CCCCCC;
 }
 
 canvas {
-  background-color: #330000;
+  background-color: #428C47;
   display: block;
 }
 
