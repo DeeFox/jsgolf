@@ -1,48 +1,61 @@
 define([
-  'physicsjs-full.min'
+  'physicsjs',
+  'behaviors/edge-collision-detection',
+  'behaviors/body-impulse-response-without-angular-vel',
+  'behaviors/body-collision-detection',
+  'behaviors/sweep-prune',
+  'bodies/circle'
 ], function( Physics ){
   var world;
   var ball;
   var ballSleeping = false;
   var engineConfig = {
-    timestep: 6
+    timestep: 5
   };
   return {
     initialize: function() {
       world = Physics({
-        maxIPF: 5,
+        maxIPF: 10,
         timestep: engineConfig.timestep
       });
-      var bounds = Physics.aabb(0, 0, 1200, 600);
+      var bounds = Physics.aabb(0, 0, 1000, 600);
       world.add( Physics.behavior('edge-collision-detection', {
         aabb: bounds,
         restitution: 1.0,
         cof: 0.0
       }) );
-      world.add( Physics.behavior('body-impulse-response') );
+
+      world.add( Physics.behavior('body-impulse-response-without-angular-vel') );
       world.add( Physics.behavior('body-collision-detection') );
       world.add( Physics.behavior('sweep-prune') );
 
       world.on('collisions:detected', function(data, e) {
         var bodyA = data.collisions[0].bodyA,
             bodyB = data.collisions[0].bodyB;
+        var partner = (bodyA == ball) ? bodyB : bodyA;
+        if(partner.material == "bouncy") {
+          if(ball.state.vel.x >= ball.state.vel.y) {
+            var mult = 2 / Math.abs(ball.state.vel.x);
+            ball.state.vel.x *= mult;
+            ball.state.vel.y *= mult;
+          } else {
+            var mult = 2 / Math.abs(ball.state.vel.y);
+            ball.state.vel.y *= mult;
+            ball.state.vel.x *= mult;
+          }
 
-        bodyA.sleep(true);
-        bodyA.sleep(false);
-        bodyA.state.angular.vel = 0;
+        }
 
-        bodyB.sleep(true);
-        bodyB.sleep(false);
-        bodyB.state.angular.vel = 0;
       });
+
     },
     isBallAsleep: function() {
       return ballSleeping;
     },
     initBall: function() {
       ball = Physics.body('circle', {
-        x: 100, // x-coordinate
-        y: 210, // y-coordinate
+        x: 450, // x-coordinate
+        y: 300, // y-coordinate
         vx: 0.0, // velocity in x-direction
         vy: 0.0, // velocity in y-direction
         radius: 8,
@@ -64,8 +77,8 @@ define([
       for(i = 0; i < bodies.length; i++) {
         b = bodies[i];
         if(b !== undefined) {
-          b.state.vel.x *= 0.99;
-          b.state.vel.y *= 0.99;
+          b.state.vel.x *= 0.995;
+          b.state.vel.y *= 0.995;
         }
       }
 

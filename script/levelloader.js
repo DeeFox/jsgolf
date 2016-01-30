@@ -20,7 +20,8 @@ define([
           height: p['size'][1],
           angle: p['angle'],
           treatment: 'static',
-          cof: 0.0
+          cof: 0.0,
+          material: p['type']
         });
         console.log(item);
         engine.addItem(item);

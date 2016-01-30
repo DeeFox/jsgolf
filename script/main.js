@@ -19,7 +19,7 @@ require([ "engine",
   };
   var begin = function() {
     engine.initBall();
-    engine.hitBall(2, 0.5);
+    engine.hitBall(1, 0.5);
 
     var myTime = -1;
     function repeatOften(time) {

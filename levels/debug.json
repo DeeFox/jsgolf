@@ -8,26 +8,43 @@
   {
     "shape": "rect",
     "type": "wall",
-    "pos": [1190.0, 300],
+    "pos": [990.0, 300],
     "size": [20, 600]
   },
   {
     "shape": "rect",
     "type": "wall",
-    "pos": [600.0, 10.0],
-    "size": [1160, 20]
+    "pos": [500.0, 10.0],
+    "size": [960, 20]
   },
   {
     "shape": "rect",
     "type": "wall",
-    "pos": [600.0, 590.0],
-    "size": [1160, 20]
+    "pos": [500.0, 590.0],
+    "size": [960, 20]
   },
   {
     "shape": "rect",
-    "type": "wall",
-    "pos": [700, 450],
-    "size": [400, 20],
-    "angle": -0.7
+    "type": "bouncy",
+    "pos": [500, 300],
+    "size": [200, 20]
+  },
+  {
+    "shape": "rect",
+    "type": "bouncy",
+    "pos": [500, 500],
+    "size": [200, 20]
+  },
+  {
+    "shape": "rect",
+    "type": "bouncy",
+    "pos": [410, 400],
+    "size": [20, 180]
+  },
+  {
+    "shape": "rect",
+    "type": "bouncy",
+    "pos": [590, 400],
+    "size": [20, 180]
   }
 ]
